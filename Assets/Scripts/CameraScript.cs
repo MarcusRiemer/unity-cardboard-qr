@@ -179,7 +179,7 @@ namespace Assets.Scripts
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene(Config.SceneName(Config.Scenes.MainMenu));
+                SceneManager.LoadScene(Config.SceneName(Config.Scenes.Start));
             }
 
             // Destroy data which is marked as to be destroyed from the thread.

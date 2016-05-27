@@ -17,7 +17,7 @@
         <member name="T:ZXing.ResultPoint">
             <summary>
             Encapsulates a point of interest in an image containing a barcode. Typically, this
-            would be the location of a finder pattern or the corner of the barcode, for example.
+            would be the LocationOb of a finder pattern or the corner of the barcode, for example.
             </summary>
             <author>Sean Owen</author>
             <author>www.Redivivus.in (suraj.supekar@redivivus.in) - Ported from ZXING Java Source</author>
@@ -781,7 +781,7 @@
             </summary>
         </member>
         <member name="T:ZXing.Client.Result.GeoResultParser">
-            <summary> Parses a "geo:" URI result, which specifies a location on the surface of
+            <summary> Parses a "geo:" URI result, which specifies a LocationOb on the surface of
             the Earth as well as an optional altitude above the surface. See
             <a href="http://tools.ietf.org/html/draft-mayrhofer-geo-uri-00">
             http://tools.ietf.org/html/draft-mayrhofer-geo-uri-00</a>.
@@ -2026,9 +2026,9 @@
         </member>
         <member name="M:ZXing.PDF417.Internal.BarcodeRow.set(System.Int32,System.Boolean)">
              <summary>
-             Sets a specific location in the bar
+             Sets a specific LocationOb in the bar
             
-             <param name="x">The location in the bar</param>
+             <param name="x">The LocationOb in the bar</param>
              <param name="black">Black if true, white if false;</param>
              </summary>
         </member>
@@ -2048,9 +2048,9 @@
         </member>
         <member name="P:ZXing.PDF417.Internal.BarcodeRow.Item(System.Int32)">
              <summary>
-             Sets a specific location in the bar
+             Sets a specific LocationOb in the bar
             
-             <param name="x">The location in the bar</param>
+             <param name="x">The LocationOb in the bar</param>
              <param name="value">Black if true, white if false;</param>
              </summary>
         </member>
@@ -2646,7 +2646,7 @@
         </member>
         <member name="M:ZXing.QrCode.Internal.AlignmentPatternFinder.centerFromEnd(System.Int32[],System.Int32)">
             <summary> Given a count of black/white/black pixels just seen and an end position,
-            figures the location of the center of this black/white/black run.
+            figures the LocationOb of the center of this black/white/black run.
             </summary>
         </member>
         <member name="M:ZXing.QrCode.Internal.AlignmentPatternFinder.foundPatternCross(System.Int32[])">
@@ -4045,7 +4045,7 @@
             </author>
         </member>
         <member name="T:ZXing.Common.GridSampler">
-            <summary> Implementations of this class can, given locations of finder patterns for a QR code in an
+            <summary> Implementations of this class can, given Locations of finder patterns for a QR code in an
             image, sample the right points in the image to reconstruct the QR code, accounting for
             perspective distortion. It is abstracted since it is relatively expensive and should be allowed
             to take advantage of platform-specific optimized implementations, like Sun's Java Advanced
@@ -4078,9 +4078,9 @@
             may be rotated or perspective-distorted, the caller supplies four points in the source image
             that define known points in the barcode, so that the image may be sampled appropriately.</p>
             
-            <p>The last eight "from" parameters are four X/Y coordinate pairs of locations of points in
+            <p>The last eight "from" parameters are four X/Y coordinate pairs of Locations of points in
             the image that define some significant points in the image to be sample. For example,
-            these may be the location of finder pattern in a QR Code.</p>
+            these may be the LocationOb of finder pattern in a QR Code.</p>
             
             <p>The first eight "to" parameters are four X/Y coordinate pairs measured in the destination
             {@link BitMatrix}, from the top left, where the known points in the image given by the "from"
@@ -4779,7 +4779,7 @@
         <member name="T:ZXing.Common.DetectorResult">
             <summary> <p>Encapsulates the result of detecting a barcode in an image. This includes the raw
             matrix of black/white pixels corresponding to the barcode, and possibly points of interest
-            in the image, like the location of finder patterns or corners of the barcode in the image.</p>
+            in the image, like the LocationOb of finder patterns or corners of the barcode in the image.</p>
             
             </summary>
             <author>  Sean Owen
@@ -5003,7 +5003,7 @@
             <param name="received">The received.</param>
             <param name="numECCodewords">The num EC codewords.</param>
             <param name="erasures">The erasures.</param>
-            <param name="errorLocationsCount">The error locations count.</param>
+            <param name="errorLocationsCount">The error Locations count.</param>
             <returns></returns>
         </member>
         <member name="M:ZXing.PDF417.Internal.EC.ErrorCorrection.runEuclideanAlgorithm(ZXing.PDF417.Internal.EC.ModulusPoly,ZXing.PDF417.Internal.EC.ModulusPoly,System.Int32)">
@@ -5014,9 +5014,9 @@
         </member>
         <member name="M:ZXing.PDF417.Internal.EC.ErrorCorrection.findErrorLocations(ZXing.PDF417.Internal.EC.ModulusPoly)">
             <summary>
-            Finds the error locations as a direct application of Chien's search
+            Finds the error Locations as a direct application of Chien's search
             </summary>
-            <returns>The error locations.</returns>
+            <returns>The error Locations.</returns>
             <param name="errorLocator">Error locator.</param>
         </member>
         <member name="M:ZXing.PDF417.Internal.EC.ErrorCorrection.findErrorMagnitudes(ZXing.PDF417.Internal.EC.ModulusPoly,ZXing.PDF417.Internal.EC.ModulusPoly,System.Int32[])">
@@ -5026,7 +5026,7 @@
             <returns>The error magnitudes.</returns>
             <param name="errorEvaluator">Error evaluator.</param>
             <param name="errorLocator">Error locator.</param>
-            <param name="errorLocations">Error locations.</param>
+            <param name="errorLocations">Error Locations.</param>
         </member>
         <member name="T:ZXing.OneD.RSS.Expanded.Decoders.GeneralAppIdDecoder">
             <summary>
@@ -5624,7 +5624,7 @@
             <return>birthday formatted as yyyyMMdd (e.g. 19780917)</return>
         </member>
         <member name="P:ZXing.Client.Result.AddressBookParsedResult.Geo">
-            <return>a location as a latitude/longitude pair</return>
+            <return>a LocationOb as a latitude/longitude pair</return>
         </member>
         <member name="T:ZXing.Aztec.Internal.HighLevelEncoder">
             <summary>
@@ -5811,7 +5811,7 @@
         </member>
         <member name="T:ZXing.QrCode.Internal.FinderPatternInfo">
             <summary>
-            <p>Encapsulates information about finder patterns in an image, including the location of
+            <p>Encapsulates information about finder patterns in an image, including the LocationOb of
             the three finder patterns, and their estimated module size.</p>
             </summary>
             <author>Sean Owen</author>
@@ -6815,15 +6815,15 @@
             be part of a Data Matrix barcode.
             
             </summary>
-            <param name="fixedDimension">if scanning horizontally, this is the row (the fixed vertical location)
-            where we are scanning. If scanning vertically it's the column, the fixed horizontal location
+            <param name="fixedDimension">if scanning horizontally, this is the row (the fixed vertical LocationOb)
+            where we are scanning. If scanning vertically it's the column, the fixed horizontal LocationOb
             </param>
             <param name="maxWhiteRun">largest run of white pixels that can still be considered part of the
             barcode region
             </param>
-            <param name="minDim">minimum pixel location, horizontally or vertically, to consider
+            <param name="minDim">minimum pixel LocationOb, horizontally or vertically, to consider
             </param>
-            <param name="maxDim">maximum pixel location, horizontally or vertically, to consider
+            <param name="maxDim">maximum pixel LocationOb, horizontally or vertically, to consider
             </param>
             <param name="horizontal">if true, we're scanning left-right, instead of up-down
             </param>
@@ -7457,7 +7457,7 @@
         </member>
         <member name="M:ZXing.QrCode.Internal.FinderPatternFinder.centerFromEnd(System.Int32[],System.Int32)">
             <summary> Given a count of black/white/black/white/black pixels just seen and an end position,
-            figures the location of the center of this run.
+            figures the LocationOb of the center of this run.
             </summary>
         </member>
         <member name="M:ZXing.QrCode.Internal.FinderPatternFinder.foundPatternCross(System.Int32[])">
@@ -7507,9 +7507,9 @@
             with another horizontal scan. This is needed primarily to locate the real horizontal
             center of the pattern in cases of extreme skew.
             And then we cross-cross-cross check with another diagonal scan.</p>
-            If that succeeds the finder pattern location is added to a list that tracks
-            the number of times each location has been nearly-matched as a finder pattern.
-            Each additional find is more evidence that the location is in fact a finder
+            If that succeeds the finder pattern LocationOb is added to a list that tracks
+            the number of times each LocationOb has been nearly-matched as a finder pattern.
+            Each additional find is more evidence that the LocationOb is in fact a finder
             pattern center
             </summary>
             <param name="stateCount">reading state module counts from horizontal scan</param>
@@ -9960,22 +9960,22 @@
             <throws>ReaderException if dimension is not >= 21 and 1 mod 4</throws>
         </member>
         <member name="M:ZXing.QrCode.Internal.BitMatrixParser.readFormatInformation">
-            <summary> <p>Reads format information from one of its two locations within the QR Code.</p>
+            <summary> <p>Reads format information from one of its two Locations within the QR Code.</p>
             
             </summary>
             <returns> {@link FormatInformation} encapsulating the QR Code's format info
             </returns>
-            <throws>  ReaderException if both format information locations cannot be parsed as </throws>
+            <throws>  ReaderException if both format information Locations cannot be parsed as </throws>
             <summary> the valid encoding of format information
             </summary>
         </member>
         <member name="M:ZXing.QrCode.Internal.BitMatrixParser.readVersion">
-            <summary> <p>Reads version information from one of its two locations within the QR Code.</p>
+            <summary> <p>Reads version information from one of its two Locations within the QR Code.</p>
             
             </summary>
             <returns> {@link Version} encapsulating the QR Code's version
             </returns>
-            <throws>  ReaderException if both version information locations cannot be parsed as </throws>
+            <throws>  ReaderException if both version information Locations cannot be parsed as </throws>
             <summary> the valid encoding of version information
             </summary>
         </member>

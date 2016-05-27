@@ -21,7 +21,7 @@ namespace Assets.Scripts
         /// </summary>
         public void OnClickBackButton() 
         {
-            SceneManager.LoadScene(Config.SceneName(Config.Scenes.MainMenu));
+            SceneManager.LoadScene(Config.SceneName(Config.Scenes.Game));
         }
     }
 }

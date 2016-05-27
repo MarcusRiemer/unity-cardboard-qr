@@ -16,7 +16,7 @@ using UnityEngine;
 using System.Collections;
 
 /// @ingroup LegacyScripts
-/// This script shows the location of the mouse pointer on the GUI texture.
+/// This script shows the LocationOb of the mouse pointer on the GUI texture.
 ///
 /// Attach this script to the same object as CardboardOnGUI itself.  It
 /// supports moving the mouse with the user's gaze, and clicking on the UI with the
@@ -36,7 +36,7 @@ public class CardboardOnGUIMouse : MonoBehaviour {
            "Leave at 0,0 to use actual image size.")]
   public Vector2 pointerSize;
 
-  /// The location of the pointer's _hot spot_ relative to the top left corner of
+  /// The LocationOb of the pointer's _hot spot_ relative to the top left corner of
   /// the pointer image.  This is in _screen coordinates_, and does not
   /// depend on the actual resolution of the pointer image.
   [Tooltip("The screen pixel of the image to position over the mouse point.")]

@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Threading;
 
 namespace Assets.Scripts
 {
@@ -75,6 +76,24 @@ namespace Assets.Scripts
         }
 
         /// <summary>
+        /// Currently targeted destination.
+        /// </summary>
+        public int CurrentDestination
+        {
+            get { return _currentDestination; }
+            set { _currentDestination = value; }
+        }
+
+        /// <summary>
+        /// Currently displayed position.
+        /// </summary>
+        public int CurrentPosition
+        {
+            get { return _currentPosition; }
+            set { _currentPosition = value; }
+        }
+
+        /// <summary>
         /// Current camera texture width.
         /// </summary>
         public int CamWidth
@@ -100,6 +119,35 @@ namespace Assets.Scripts
             get { return _allQuestions; }
             set { _allQuestions = value; }
         }
+
+        /// <summary>
+        /// All destinations received from API.
+        /// </summary>
+        public Locations AllLocations
+        {
+            get { return _allLocations; }
+            set { _allLocations = value; }
+        }
+
+        /// <summary>
+        /// All positions received from API.
+        /// </summary>
+        public Positions AllPositions
+        {
+            get { return _allPositions; }
+            set { _allPositions = value; }
+        }
+
+        /// <summary>
+        /// All events received from API.
+        /// </summary>
+        public Things AllThings
+        {
+            get { return _allThings; }
+            set { _allThings = value; }
+        }
+
+
 
         /// <summary>
         /// Reference to <see cref="WebCamTexture"/> used in <see cref="CameraScript"/>. Required to speed up scene switching.
@@ -199,15 +247,29 @@ namespace Assets.Scripts
             return _unlockedCoins.Count;
         }
 
+        public bool NewLocation
+        {
+            get { return _newLocation; }
+            set { _newLocation = value; }
+        }
+
+
+
         [NonSerialized] private int _currentCoin = -1;
         [NonSerialized] private int _currentQuestion = -1;
+        [NonSerialized] private int _currentDestination = -1;
+        [NonSerialized] private int _currentPosition = -1;
         [NonSerialized] private int _camWidth;
         [NonSerialized] private int _camHeight;
         [NonSerialized] private float _planeWidth;
         [NonSerialized] private float _planeHeight;
         [NonSerialized] private Questions _allQuestions;
+        [NonSerialized] private Locations _allLocations;
+        [NonSerialized] private Positions _allPositions;
+        [NonSerialized] private Things _allThings;
         [NonSerialized] private WebCamTexture _webCamTexture;
         [NonSerialized] private Config.Scenes _sceneToSwitchTo = Config.Scenes.None;
+        [NonSerialized] private bool _newLocation = false;
 
         /// <summary>
         /// Reset the current question and current coin. All other values remain, since they should be static throughout the life time of the app.

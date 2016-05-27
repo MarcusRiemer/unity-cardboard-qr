@@ -308,7 +308,7 @@ public class StereoController : MonoBehaviour {
     float radius = Mathf.Clamp(radiusOfInterest, 0, distance);
 
     // Move the eye so that COI has about the same size onscreen as in the mono camera FOV.
-    // The radius affects the horizon location, which is where the screen-size matching has to
+    // The radius affects the horizon LocationOb, which is where the screen-size matching has to
     // occur.
     float scale = proj11 / camera.projectionMatrix[1, 1];  // vertical FOV
     float offset =

@@ -7,6 +7,9 @@
     {
         Coin,
         Question,
+        Position,
+        Thing,
+        Location,
         Particle
     }
 }
