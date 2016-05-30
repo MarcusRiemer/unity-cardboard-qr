@@ -123,6 +123,7 @@ namespace Assets.Scripts
             Location sec = null;
 
             var actBSSID = ajo.Call<String>("Scan");
+
             if (actBSSID != "empty")
             {
                 var secBSSID = ajo.Call<String>("getSecBSSID");

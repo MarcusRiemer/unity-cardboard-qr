@@ -103,7 +103,7 @@ namespace Assets.Scripts
                             break;
                         case DataType.Particle:
                             // If it's a particle, add a new data object to track it.
-                            _data.Add(new QrCodeData(points, dataFromJson.id, dataFromJson.type));
+                            _data.Add(new QRCodeDataParticle(points, dataFromJson.id, dataFromJson.StartColor, dataFromJson.EndColor, DataType.Particle));
                             break;
                     }
                 }

@@ -61,7 +61,7 @@ namespace Assets.Scripts
         /// Creates a model based on the <see cref="DataType"/>.
         /// </summary>
         /// <param name="parent"></param>
-        public void CreateModel(Transform parent)
+        public virtual void CreateModel(Transform parent)
         {
             GameObject model;
             switch (_dataType)
