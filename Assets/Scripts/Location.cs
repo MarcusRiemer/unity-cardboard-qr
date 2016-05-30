@@ -14,11 +14,17 @@ namespace Assets.Scripts
         public int id;
         public DataType type;
         public string location;
+        public string describtion;
+        public string[] bssids;
+        public int navigate;
 
-        public Location(int id, string location)
+        public Location(int id, string location, string describtion, string bssids, int navigate)
         {
             this.id = id;
             this.location = location;
+            this.describtion = describtion;
+            this.bssids = bssids.Split(new Char[] { ' ' });
+            this.navigate = navigate;
         }
 
         public int CompareTo(object obj)

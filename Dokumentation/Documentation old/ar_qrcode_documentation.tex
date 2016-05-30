@@ -1,0 +1,181 @@
+% das Papierformat zuerst
+\documentclass[a4paper, 12pt, hidelinks]{report}
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\Large}
+
+\usepackage[pdftex]{graphicx}
+
+\usepackage{fancyvrb}
+
+\usepackage[left=25mm,right=20mm,top=25mm,bottom=25mm]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[ngermanb]{babel}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=none,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+% für bilder
+\usepackage{graphicx}
+% für floats (figures und so)
+\usepackage{float}
+
+% für Pfeile im Text Mode
+\usepackage{textcomp}
+
+\usepackage{subcaption}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2mm}
+
+\title{Augmented Reality auf mobilen Geräten}
+\author{Mervyn McCreight, Tim Pauls}
+\date{\today}
+
+\newenvironment{mySourceCode}
+{\begin{list}{}{\setlength{\leftmargin}{2em}}\item\scriptsize\bfseries}
+{\end{list}}
+
+% hier beginnt das Dokument
+\begin{document}
+
+% =======================================================================
+% Titelseite
+
+
+ % FH-Wedel Header.
+\begin{figure}[h]
+\centering
+\includegraphics[width=350px]{graphics/fhwedel}
+\label{fig:fhwedel}
+\end{figure}
+
+
+
+
+% nicht zu parsende Zeichen
+\begin{verbatim}
+
+
+\end{verbatim}
+
+\begin{center}
+\textbf{\LARGE{Augmented Reality auf mobilen Geräten}}\\
+von Mervyn McCreight (Inf101368)\\
+und Tim Pauls (Inf101369)
+
+\end{center}
+
+\begin{verbatim}
+\end{verbatim}
+
+\begin{center}
+\textbf{\today}
+\end{center}
+
+\begin{verbatim}
+\end{verbatim}
+
+\begin{center}
+\textbf{\large{Fachbereich: Informatik}}
+\end{center}
+
+\begin{verbatim}
+
+
+\end{verbatim}
+
+% Name && Adresse des Arbeitgebers
+\begin{center}
+\textbf{\large{Fachhochschule Wedel}} \\
+\textbf{\large{Feldstraße 143, 22880 Wedel}} \\
+\end{center}
+
+% nicht zu parsende Zeichen
+\begin{verbatim}
+
+
+\end{verbatim}
+
+% Arbeitsbezeichnung.
+\begin{center}
+\textbf{Projekt Virtuelle Realität und Simulation}
+\end{center}
+
+% nicht zu parsende Zeichen
+\begin{verbatim}
+
+
+\end{verbatim}
+
+% Tabellarische Aufzählung der Dauer und der Betreuer.
+\begin{flushleft}
+\begin{tabular}{llll}
+
+\textbf{betreut durch:}
+& & & Marcus Riemer, B.Sc. \emph{(mri@fh-wedel.de)}\\
+& & & Christian-Arved Bohn, Prof. Dr. \emph{(bo@fh-wedel.de)}\\
+
+\end{tabular}
+\end{flushleft}
+
+
+\newpage
+
+
+\newpage
+
+% =======================================================================
+% Inhaltsverzeichnis
+
+\tableofcontents
+\listoffigures
+\newpage
+
+% -----------------------------------------------------------------------
+% Introduction
+
+\include{chapter/Zielsetzung}
+\include{chapter/Analyse}
+\include{chapter/tdot}
+\include{chapter/App}
+
+
+% ===================================================0
+% End of Document
+\end{document}

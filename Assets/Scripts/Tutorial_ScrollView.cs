@@ -22,7 +22,8 @@ public class Tutorial_ScrollView : MonoBehaviour {
 
         foreach (Location loc in GlobalState.Instance.AllLocations.locations)
         {
-            LocationList.Add(loc.location);
+            if (loc.navigate == 1)
+                LocationList.Add(loc.location);
         }
 
 		foreach(string str in LocationList)

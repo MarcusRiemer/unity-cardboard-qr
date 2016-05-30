@@ -24,6 +24,9 @@ namespace Assets.Scripts
                 GameObject.Find("WifiButton").GetComponentInChildren<Text>().text = StringResources.WifiButtonText;
             else
                 Destroy(GameObject.Find("WifiButton"));
+            GameObject.Find("LocationText").GetComponent<Text>().text = "Orte";
+            GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events";
+            GameObject.Find("WifiPosition").GetComponent<Text>().text = "";
 
             // Load events from API
             var thingsWww = new WWW(Config.ApiUrlThings);
@@ -63,10 +66,11 @@ namespace Assets.Scripts
             if (GlobalState.Instance.NewLocation == true)
             {
                 GlobalState.Instance.NewLocation = false;
-                var loc = GlobalState.Instance.AllLocations.locations[GlobalState.Instance.CurrentDestination].location;
-                GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events in: " + loc;
+                var loc = GlobalState.Instance.AllLocations.locations[GlobalState.Instance.CurrentDestination];
+                GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events in: " + loc.location;
                 GameObject.Find("LocationText").GetComponent<Text>().text = "Ort zurücksetzen";
-                var eve = GlobalState.Instance.AllThings.things.Where(x => x.location == loc);
+                GameObject.Find("WifiPosition").GetComponent<Text>().text = loc.describtion;
+                var eve = GlobalState.Instance.AllThings.things.Where(x => x.location == loc.location);
                 for (int i = 1; i <= 2; i++)
                 {
                     var elem = eve.ElementAtOrDefault(i - 1);
@@ -78,10 +82,17 @@ namespace Assets.Scripts
             }
         }
 
+        public void SaveStateAndCloseApplication()
+        {
+            GlobalState.Save();
+            Application.Quit();
+        }
+
         public void OnButtonClick()
         {
             GameObject.Find("LocationText").GetComponent<Text>().text = "Orte";
             GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events";
+            GameObject.Find("WifiPosition").GetComponent<Text>().text = "";
             GlobalState.Instance.CurrentDestination = -1;
             var eve = GlobalState.Instance.AllThings.things;
             for (int i = 1; i <= 2; i++)
@@ -108,25 +119,33 @@ namespace Assets.Scripts
         public void OnWifiClick ()
         {
             var s = StringResources.NoWifi;
-            string loc = "";
-            if (Config.BSSIDs.TryGetValue(ajo.Call<string>("Scan"), out loc))
+            Location act = null;
+            Location sec = null;
+
+            var actBSSID = ajo.Call<String>("Scan");
+            if (actBSSID != "empty")
             {
-                if (new List<String> { "Audimax", "Audimax Brücke 1.OG", "Lesemax", "VR Lab 1.OG", "Audimax 1.OG" }.Contains(loc))
-                    s = StringResources.Mediabuilding;
-                else if (new List<String> { "RZ5", "Cafeteria" }.Contains(loc))
-                    s = StringResources.South;
-                else if (new List<String> { "Altbau ganz rechts 2.OG", "Altbau rechts 2.OG", "Altbau rechts 1.OG", "Altbau rechts", "Altbau links 2.OG", "Altbau links 1.OG", "Altbau links" }.Contains(loc))
-                    s = StringResources.Old;
-                else if (new List<String> { "Kreuzung HS4", "SR11" }.Contains(loc))
-                    s = StringResources.Entrance;
-                else if (new List<String> { "Lernboxen", "Altbau ganz links", "Netztechnik" }.Contains(loc))
-                    s = StringResources.Passage;
-                else if (new List<String> { "vor SR1", "vor HS2", "über HS2 1.OG", "über HS2 2.OG", "zwischen HS1 und HS2", "Untergeschoss", "HS1", "über HS1 1.OG", "über HS1 2.OG"  }.Contains(loc))
-                    s = StringResources.Overbuilding;
-                else if (new List<String> { "HS5", "Serverraum", "vor HS5" }.Contains(loc))
-                    s = StringResources.Passage2;
-                else if (new List<String> { "SR9 1.OG", "RZ2", "RZ3" }.Contains(loc))
-                    s = StringResources.North;
+                var secBSSID = ajo.Call<String>("getSecBSSID");
+                foreach (Location loc in GlobalState.Instance.AllLocations.locations)
+                {
+                    if (loc.bssids.Contains(actBSSID))
+                        act = loc;
+
+                    if (secBSSID != "empty" && loc.bssids.Contains(secBSSID))
+                        sec = loc;
+
+                    if (act != null && sec != null)
+                        break;
+                }
+                if (act != null && sec != null)
+                    if (act == sec)
+                        s = "Aktuell Position: " + act.location + ". " + act.describtion;
+                    else
+                        s = "Aktuelle Position: zwischen " + act.location + " und " + sec.location;
+                else if (act != null)
+                    s = "Wahrscheinliche aktuelle Position: " + act.location + ". " + act.describtion;
+                else if (sec != null)
+                    s = "Wahrscheinliche aktuelle Position: " + sec.location + ". " + sec.describtion;
             }
             GameObject.Find("WifiPosition").GetComponent<Text>().text = s;
         }
