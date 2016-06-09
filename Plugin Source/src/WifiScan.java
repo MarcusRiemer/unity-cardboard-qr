@@ -14,10 +14,6 @@ public class WifiScan {
 	private Context context = UnityPlayer.currentActivity.getBaseContext();
 	private WifiManager wifi = (WifiManager) context
 			.getSystemService(Context.WIFI_SERVICE);
-	private String actBSSID;
-	private String secBSSID;
-	private int actLevel;
-	private int secLevel;
 
 	public static WifiScan getWifi() {
 		if (wifiScan == null) {
@@ -28,38 +24,18 @@ public class WifiScan {
 	}
 
 	public String Scan() {
-		actBSSID = "empty";
-		secBSSID = "empty";
-		actLevel = 0;
-		secLevel = 0;
+		String BSSID = "";
 		List<ScanResult> results = wifi.getScanResults();
 		wifi.startScan();
 		try {
-			if (results != null) {
-				for (ScanResult sc : results) {
-					if (sc.SSID == "FH-Visitor") {
-						if (actBSSID == "empty" || sc.level > actLevel) {
-							actBSSID = sc.BSSID;
-							actLevel = sc.level;
-						} else if (secBSSID == "empty" || sc.level > secLevel) {
-							secBSSID = sc.BSSID;
-							secLevel = sc.level;
-						}
-					}
-				}
-			}
+			if (results != null) 
+				for (ScanResult sc : results) 
+					if (sc.level >= -80)
+						BSSID = BSSID + " " + sc.BSSID;
+
 		} catch (Exception e) {
 			Log.e("GetWifis", "Error processing scan results", e);
 		}
-		return actBSSID;
-
-	}
-
-	public String getSecBSSID() {
-		return secBSSID;
-	}
-
-	public String getTest() {
-		return "dies ist ein Test!";
+		return BSSID;
 	}
 }

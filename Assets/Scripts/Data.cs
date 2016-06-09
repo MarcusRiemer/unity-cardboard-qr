@@ -24,9 +24,9 @@ namespace Assets.Scripts
         public string[] arrows;
 
          // relevant for particle systems
-       public string[] particleArrows;
-       public string startColor;
-       public string endColor;
+        //public string[] particleArrows;
+        public string startColor;
+        public string endColor;
 
         public Color StartColor
         {
@@ -64,6 +64,15 @@ namespace Assets.Scripts
         public Position ToPosition()
         {
             return new Position(id, position, arrows);
+        }
+
+        /// <summary>
+        /// Map QR-code data to Particle object.
+        /// </summary>
+        /// <returns>Particlesystem corresponding to QR-code data.</returns>
+        public Particle ToParticle()
+        {
+            return new Particle(id, startColor, endColor);
         }
 
         public override string ToString()

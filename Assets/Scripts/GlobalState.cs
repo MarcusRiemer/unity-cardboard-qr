@@ -147,7 +147,14 @@ namespace Assets.Scripts
             set { _allThings = value; }
         }
 
-
+        /// <summary>
+        /// All particlesystems received from API.
+        /// </summary>
+        public Particles AllParticles
+        {
+            get { return _allParticles; }
+            set { _allParticles = value; }
+        }
 
         /// <summary>
         /// Reference to <see cref="WebCamTexture"/> used in <see cref="CameraScript"/>. Required to speed up scene switching.
@@ -267,6 +274,7 @@ namespace Assets.Scripts
         [NonSerialized] private Locations _allLocations;
         [NonSerialized] private Positions _allPositions;
         [NonSerialized] private Things _allThings;
+        [NonSerialized] private Particles _allParticles;
         [NonSerialized] private WebCamTexture _webCamTexture;
         [NonSerialized] private Config.Scenes _sceneToSwitchTo = Config.Scenes.None;
         [NonSerialized] private bool _newLocation = false;

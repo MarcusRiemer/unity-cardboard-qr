@@ -70,10 +70,6 @@ namespace Assets.Scripts
                     model = Object.Instantiate(Resources.Load("Coin")) as GameObject;
                     isArrow = false;
                     break;
-                case DataType.Particle:
-                    model = Object.Instantiate(Resources.Load("ParticleSystem")) as GameObject;
-                    isArrow = false;
-                    break;
                 case DataType.Position:
                     // Get Arrow to get from the current position to the current destination
                     var actArrow = GlobalState.Instance.AllPositions.positions.First(x => x.id == GlobalState.Instance.CurrentPosition)

@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using ZXing;
 using Object = UnityEngine.Object;
 
 namespace Assets.Scripts {
     class QRCodeDataParticle  : QrCodeData {
-         private readonly Color _startColor;
+        private readonly Color _startColor;
         private readonly Color _endColor;
 
-        public QRCodeDataParticle(ResultPoint[] resultPoints, int id, Color startColor, Color endColor, DataType type) : base(resultPoints, id, type)
+        public QRCodeDataParticle(ResultPoint[] resultPoints, int id, DataType type) : base(resultPoints, id, type)
         {
-            _startColor = startColor;
-            _endColor = endColor;
+            var actParticle = GlobalState.Instance.AllParticles.particles.First(x => x.id == id);
+            _startColor = actParticle.StartColor;
+            _endColor = actParticle.EndColor;
         }
 
         public override void CreateModel(Transform parent)
@@ -25,7 +27,8 @@ namespace Assets.Scripts {
                 {new GradientColorKey(_startColor, 0f), new GradientColorKey(_endColor, 1f)};
                 var gradientAlphaKeys = new GradientAlphaKey[]
                 {new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 0.8f), new GradientAlphaKey(0f, 1f)};
-                    // only fade out in the last 20% of lifetime
+                // only fade out in the last 20% of lifetime
+
                 gradient.SetKeys(gradientColorKeys, gradientAlphaKeys);
                 colorOverLifetimeModule.color = new ParticleSystem.MinMaxGradient(gradient);
 

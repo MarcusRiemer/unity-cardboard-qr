@@ -59,9 +59,12 @@ namespace Assets.Scripts
         public const string ApiUrlThings = "http://stud.fh-wedel.de/~inf9903/api.php/things/";
         public const string ApiUrlPositions = "http://stud.fh-wedel.de/~inf9903/api.php/positions/";
         public const string ApiUrlLocations = "http://stud.fh-wedel.de/~inf9903/api.php/locations/";
+        public const string ApiUrlParticles = "http://stud.fh-wedel.de/~inf9903/api.php/particles/";
         /// <summary>
         /// Storage path for global state.
         /// </summary>
         public static readonly string StatePath = Application.persistentDataPath + "/globalState.dat";
+
+        
     }
 }

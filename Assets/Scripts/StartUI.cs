@@ -57,6 +57,12 @@ namespace Assets.Scripts
             GlobalState.Instance.AllQuestions = JsonUtility.FromJson<Questions>(questionsWww.text);
             questionsWww.Dispose();
 
+            // Load questions from API.
+            var particlesWww = new WWW(Config.ApiUrlParticles);
+            yield return particlesWww;
+            GlobalState.Instance.AllParticles = JsonUtility.FromJson<Particles>(particlesWww.text);
+            particlesWww.Dispose();
+
             var ajc = new AndroidJavaClass("WifiScan");
             ajo = ajc.CallStatic<AndroidJavaObject>("getWifi");
         }
@@ -119,34 +125,43 @@ namespace Assets.Scripts
         public void OnWifiClick ()
         {
             var s = StringResources.NoWifi;
-            Location act = null;
-            Location sec = null;
-
-            var actBSSID = ajo.Call<String>("Scan");
-
-            if (actBSSID != "empty")
+            var BSSIDs = ajo.Call<String>("Scan");
+            if (BSSIDs != "")
             {
-                var secBSSID = ajo.Call<String>("getSecBSSID");
+                var ids = BSSIDs.Split(' ');
+                List<Location> actMaxLoc = new List<Location>();
+                int actMaxValue = 0;
                 foreach (Location loc in GlobalState.Instance.AllLocations.locations)
                 {
-                    if (loc.bssids.Contains(actBSSID))
-                        act = loc;
-
-                    if (secBSSID != "empty" && loc.bssids.Contains(secBSSID))
-                        sec = loc;
-
-                    if (act != null && sec != null)
-                        break;
+                    var len = loc.bssids.Length;
+                    var count = 0;
+                    foreach (String id in ids)
+                        if (loc.bssids.Contains(id))
+                            count++;
+                    if (count > actMaxValue)
+                    {
+                        actMaxValue = count;
+                        actMaxLoc.Clear();
+                        actMaxLoc.Add(loc);
+                    } else if (count == actMaxValue)
+                        actMaxLoc.Add(loc);
                 }
-                if (act != null && sec != null)
-                    if (act == sec)
-                        s = "Aktuell Position: " + act.location + ". " + act.describtion;
-                    else
-                        s = "Aktuelle Position: zwischen " + act.location + " und " + sec.location;
-                else if (act != null)
-                    s = "Wahrscheinliche aktuelle Position: " + act.location + ". " + act.describtion;
-                else if (sec != null)
-                    s = "Wahrscheinliche aktuelle Position: " + sec.location + ". " + sec.describtion;
+
+                if (actMaxValue > 0)
+                {
+                    if (actMaxLoc.Count == 1)
+                        s = "Ihre aktuelle Position: " + actMaxLoc.Last().location + ". " + actMaxLoc.Last().describtion;
+                    else if (actMaxLoc.Count > 1)
+                    {
+                        s = "Sie befinden sich zwischen den folgenden Bereichen: ";
+                        foreach (Location l in actMaxLoc)
+                        {
+                            s = s + l.location + ", ";
+                        }
+                        s = s.Remove(s.Length - 2);
+                    }
+                } else
+                    s = BSSIDs;
             }
             GameObject.Find("WifiPosition").GetComponent<Text>().text = s;
         }
