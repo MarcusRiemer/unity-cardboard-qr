@@ -24,9 +24,8 @@ namespace Assets.Scripts
                 GameObject.Find("WifiButton").GetComponentInChildren<Text>().text = StringResources.WifiButtonText;
             else
                 Destroy(GameObject.Find("WifiButton"));
-            GameObject.Find("LocationText").GetComponent<Text>().text = "Orte";
-            GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events";
-            GameObject.Find("WifiPosition").GetComponent<Text>().text = "";
+            GameObject.Find("LocationText").GetComponent<Text>().text = StringResources.LocationText;
+            GameObject.Find("EventText").GetComponent<Text>().text = StringResources.EventText;
 
             // Load events from API
             var thingsWww = new WWW(Config.ApiUrlThings);
@@ -36,11 +35,11 @@ namespace Assets.Scripts
             thingsWww.Dispose();
 
             var eve = GlobalState.Instance.AllThings.things;
-            for (int i = 1; i <= 2; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 var elem = eve.ElementAtOrDefault(i - 1);
                 if (elem != null)
-                    GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.AlgEvent, elem.location, elem.start - DateTime.Now.Minute, elem.thing);
+                    GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.AlgEvent, elem.location, elem.start - (DateTime.Now.Hour * 60 + DateTime.Now.Minute), elem.thing);
                 else
                     GameObject.Find("Event" + i).GetComponent<Text>().text = "";
             }
@@ -73,15 +72,15 @@ namespace Assets.Scripts
             {
                 GlobalState.Instance.NewLocation = false;
                 var loc = GlobalState.Instance.AllLocations.locations[GlobalState.Instance.CurrentDestination];
-                GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events in: " + loc.location;
-                GameObject.Find("LocationText").GetComponent<Text>().text = "Ort zurücksetzen";
-                GameObject.Find("WifiPosition").GetComponent<Text>().text = loc.describtion;
+                GameObject.Find("EventText").GetComponent<Text>().text = loc.location;
+                GameObject.Find("LocationText").GetComponent<Text>().text = StringResources.LocationReset;
+                GameObject.Find("Event1").GetComponent<Text>().text = loc.describtion;
                 var eve = GlobalState.Instance.AllThings.things.Where(x => x.location == loc.location);
-                for (int i = 1; i <= 2; i++)
+                for (int i = 2; i <= 3; i++)
                 {
                     var elem = eve.ElementAtOrDefault(i - 1);
                     if (elem != null)
-                        GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.NextEvent, elem.start - DateTime.Now.Minute, elem.thing);
+                        GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.SpezEvent, elem.start - (DateTime.Now.Hour * 60 + DateTime.Now.Minute), elem.thing);
                     else
                         GameObject.Find("Event" + i).GetComponent<Text>().text = "";
                 }
@@ -96,16 +95,14 @@ namespace Assets.Scripts
 
         public void OnButtonClick()
         {
-            GameObject.Find("LocationText").GetComponent<Text>().text = "Orte";
-            GameObject.Find("Eventtext").GetComponent<Text>().text = "Die nächsten Events";
-            GameObject.Find("WifiPosition").GetComponent<Text>().text = "";
-            GlobalState.Instance.CurrentDestination = -1;
+            GameObject.Find("LocationText").GetComponent<Text>().text = StringResources.LocationText;
+            GameObject.Find("EventText").GetComponent<Text>().text = StringResources.EventText;
             var eve = GlobalState.Instance.AllThings.things;
-            for (int i = 1; i <= 2; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 var elem = eve.ElementAtOrDefault(i - 1);
                 if (elem != null)
-                    GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.AlgEvent, elem.location, elem.start - DateTime.Now.Minute, elem.thing);
+                    GameObject.Find("Event" + i).GetComponent<Text>().text = string.Format(StringResources.AlgEvent, elem.location, elem.start - (DateTime.Now.Hour * 60 + DateTime.Now.Minute), elem.thing);
                 else
                     GameObject.Find("Event" + i).GetComponent<Text>().text = "";
             }
@@ -161,9 +158,9 @@ namespace Assets.Scripts
                         s = s.Remove(s.Length - 2);
                     }
                 } else
-                    s = BSSIDs;
+                    s = "Position nicht feststellbar. Folgende BSSIDs erkannt:" + BSSIDs;
             }
-            GameObject.Find("WifiPosition").GetComponent<Text>().text = s;
+            GameObject.Find("Event1").GetComponent<Text>().text = s;
         }
 
         public void OnGameClick()

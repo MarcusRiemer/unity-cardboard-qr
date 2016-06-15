@@ -15,6 +15,10 @@
         public const string WifiButtonText = "Wo bin ich gerade?";
         public const string NextEvent = "In {0} Minuten startet hier die Veranstaltung {1}.";
         public const string AlgEvent = "{0}: In {1} Minuten startet hier die Veranstaltung {2}.";
+        public const string SpezEvent = "In {0} Minuten startet hier die Veranstaltung {1}.";
+        public const string LocationText = "Orte";
+        public const string EventText = "Die nächsten Events";
+        public const string LocationReset = "Ort zurücksetzen";
 
         // game-scene texts
         public const string GameHeading = "QR-Schnitzeljagd";
