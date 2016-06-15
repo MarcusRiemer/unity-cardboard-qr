@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public DataType type;
         public string location;
         public string describtion;
-        public string[] bssids;
+        public string bssids;
         public int navigate;
 
         public Location(int id, string location, string describtion, string bssids, int navigate)
@@ -23,7 +23,7 @@ namespace Assets.Scripts
             this.id = id;
             this.location = location;
             this.describtion = describtion;
-            this.bssids = bssids.Split(new Char[] { ' ' });
+            this.bssids = bssids;
             this.navigate = navigate;
         }
 

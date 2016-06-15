@@ -125,23 +125,28 @@ namespace Assets.Scripts
             var BSSIDs = ajo.Call<String>("Scan");
             if (BSSIDs != "")
             {
-                var ids = BSSIDs.Split(' ');
+                var ids = BSSIDs.Split(null);
                 List<Location> actMaxLoc = new List<Location>();
                 int actMaxValue = 0;
                 foreach (Location loc in GlobalState.Instance.AllLocations.locations)
                 {
-                    var len = loc.bssids.Length;
-                    var count = 0;
-                    foreach (String id in ids)
-                        if (loc.bssids.Contains(id))
-                            count++;
-                    if (count > actMaxValue)
+                    if (loc.bssids.Length > 0)
                     {
-                        actMaxValue = count;
-                        actMaxLoc.Clear();
-                        actMaxLoc.Add(loc);
-                    } else if (count == actMaxValue)
-                        actMaxLoc.Add(loc);
+                        var bssidArray = loc.bssids.Split(null);
+                        var len = bssidArray.Length;
+                        var count = 0;
+                        foreach (String id in ids)
+                            if (bssidArray.Contains(id))
+                                count++;
+                        if (count > actMaxValue)
+                        {
+                            actMaxValue = count;
+                            actMaxLoc.Clear();
+                            actMaxLoc.Add(loc);
+                        }
+                        else if (count == actMaxValue)
+                            actMaxLoc.Add(loc);
+                    }
                 }
 
                 if (actMaxValue > 0)

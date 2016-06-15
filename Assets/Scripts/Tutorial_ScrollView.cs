@@ -18,7 +18,6 @@ public class Tutorial_ScrollView : MonoBehaviour {
         yield return locationsWww;
         GlobalState.Instance.AllLocations = JsonUtility.FromJson<Locations>(locationsWww.text);
         Array.Sort(GlobalState.Instance.AllLocations.locations);
-        locationsWww.Dispose();
 
         foreach (Location loc in GlobalState.Instance.AllLocations.locations)
         {
@@ -34,8 +33,9 @@ public class Tutorial_ScrollView : MonoBehaviour {
 			TB.SetName(str);
 			go.transform.SetParent(Button_Template.transform.parent);
 		}
+        locationsWww.Dispose();
 
-	}
+    }
 	
 	public void ButtonClicked(string str)
 	{
