@@ -15,11 +15,16 @@ namespace Assets.Scripts
 
         public string question;
 
+        public string position;
+
         public string[] answers;
 
         public int correctAnswer;
 
-        // relevant for particle systems
+        public string[] arrows;
+
+         // relevant for particle systems
+        //public string[] particleArrows;
         public string startColor;
         public string endColor;
 
@@ -50,6 +55,24 @@ namespace Assets.Scripts
         public Question ToQuestion()
         {
             return new Question(id, question, answers, correctAnswer);
+        }
+
+        /// <summary>
+        /// Map QR-code data to Position object.
+        /// </summary>
+        /// <returns>Position corresponding to QR-code data.</returns>
+        public Position ToPosition()
+        {
+            return new Position(id, position, arrows);
+        }
+
+        /// <summary>
+        /// Map QR-code data to Particle object.
+        /// </summary>
+        /// <returns>Particlesystem corresponding to QR-code data.</returns>
+        public Particle ToParticle()
+        {
+            return new Particle(id, startColor, endColor);
         }
 
         public override string ToString()

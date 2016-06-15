@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-cardboard-qr.CSharp", "unity-cardboard-qr.CSharp.csproj", "{65554E8A-D75F-2C06-25FE-D9B7BEC91406}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unity-cardboard-qr.CSharp.Editor", "unity-cardboard-qr.CSharp.Editor.csproj", "{5212B4F5-09E5-054E-5CB3-B8403100485B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65554E8A-D75F-2C06-25FE-D9B7BEC91406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65554E8A-D75F-2C06-25FE-D9B7BEC91406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65554E8A-D75F-2C06-25FE-D9B7BEC91406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65554E8A-D75F-2C06-25FE-D9B7BEC91406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5212B4F5-09E5-054E-5CB3-B8403100485B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5212B4F5-09E5-054E-5CB3-B8403100485B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5212B4F5-09E5-054E-5CB3-B8403100485B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5212B4F5-09E5-054E-5CB3-B8403100485B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

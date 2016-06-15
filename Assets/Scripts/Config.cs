@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -8,14 +9,21 @@ namespace Assets.Scripts
     public class Config
     {
         /// <summary>
+        /// Activate location based functions
+        /// </summary>
+        public static readonly bool locationBased = true;
+
+        /// <summary>
         /// Scene names. Must match the order of <see cref="Config.SceneNames"/> array.
         /// </summary>
         public enum Scenes
         {
-            MainMenu = 0,
+            Game = 0,
             Camera = 1,
             Question = 2,
             Help = 3,
+            HelpDefault = 4,
+            Start = 5,
             None = -1
         }
 
@@ -24,11 +32,14 @@ namespace Assets.Scripts
         /// </summary>
         private static readonly string[] SceneNames =
         {
-            "MainMenuScene",
+            "GameScene",
             "CameraScene",
             "QuestionScene",
-            "HelpScene"
+            "HelpScene",
+            "HelpDefaultScene",
+            "StartScreen"
         };
+
 
         /// <summary>
         /// Returns the name of a given scene.
@@ -41,13 +52,19 @@ namespace Assets.Scripts
         }
 
         // API
-        // Calls to Mervyn McCreight FH Wedel hosted backend.
-        public const string ApiUrlQuestionCount = "http://stud.fh-wedel.de/~inf101368/qrcode/api.php/questioncount";
-        public const string ApiUrlQuestions = "http://stud.fh-wedel.de/~inf101368/qrcode/api.php/questions/";
-
+        // Calls to Timo Jürgens FH Wedel hosted backend.
+        public const string ApiUrlQuestionCount = "http://stud.fh-wedel.de/~inf9903/api.php/questioncount";
+        public const string ApiUrlLocationCount = "http://stud.fh-wedel.de/~inf9903/api.php/locationcount";
+        public const string ApiUrlQuestions = "http://stud.fh-wedel.de/~inf9903/api.php/questions/";
+        public const string ApiUrlThings = "http://stud.fh-wedel.de/~inf9903/api.php/things/";
+        public const string ApiUrlPositions = "http://stud.fh-wedel.de/~inf9903/api.php/positions/";
+        public const string ApiUrlLocations = "http://stud.fh-wedel.de/~inf9903/api.php/locations/";
+        public const string ApiUrlParticles = "http://stud.fh-wedel.de/~inf9903/api.php/particles/";
         /// <summary>
         /// Storage path for global state.
         /// </summary>
         public static readonly string StatePath = Application.persistentDataPath + "/globalState.dat";
+
+        
     }
 }

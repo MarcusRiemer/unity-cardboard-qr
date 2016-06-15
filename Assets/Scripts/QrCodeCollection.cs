@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using ZXing.Common;
 using ZXing.QrCode.Internal;
 using Object = UnityEngine.Object;
@@ -50,7 +49,6 @@ namespace Assets.Scripts
                 {
                     // ... and if that worked, handle it based on its type:
                     _contentString = decoderResult.Text;
-
                     var dataFromJson = JsonUtility.FromJson<Data>(_contentString);
 
                     switch (dataFromJson.type)
@@ -61,7 +59,7 @@ namespace Assets.Scripts
                                 // If it's a question that has not been answered yet, switch to QuestionScene.
                                 GlobalState.Instance.CurrentQuestion = dataFromJson.id;
                                 GlobalState.Instance.SceneToSwitchTo = Config.Scenes.Question;
-                            }
+                            }                       
                             else
                             {
                                 // Otherwise show a toas to the user.
@@ -77,7 +75,7 @@ namespace Assets.Scripts
                                     // If it's a coin that has not been collected yet, add a new data object to the collection to track it.
                                     GlobalState.Instance.CurrentCoin = dataFromJson.id;
                                     // null here, since we can not access unity api to create a game object yet.
-                                    _data.Add(new QrCodeDataCoin(points, dataFromJson.id));
+                                    _data.Add(new QrCodeData(points, dataFromJson.id, dataFromJson.type));
                                     CameraScript.CameraScriptInstance.SetToastToShow(
                                         StringResources.TapCoinToCollectToastMessage, CameraScript.ToastLengthLong);
                                 }
@@ -93,9 +91,19 @@ namespace Assets.Scripts
                                     StringResources.AnswerQuestionFirstToastMessage, CameraScript.ToastLength);
                             }
                             break;
+                        case DataType.Position:
+                            if (GlobalState.Instance.CurrentDestination != -1)
+                            {
+                                GlobalState.Instance.CurrentPosition = dataFromJson.id;
+                                _data.Add(new QrCodeData(points, dataFromJson.id, dataFromJson.type));
+                            }
+                            else
+                                CameraScript.CameraScriptInstance.SetToastToShow(
+                                   StringResources.NoDestinationToastMessage, CameraScript.ToastLength);
+                            break;
                         case DataType.Particle:
                             // If it's a particle, add a new data object to track it.
-                            _data.Add(new QrCodeDataParticle(points, dataFromJson.id, dataFromJson.StartColor, dataFromJson.EndColor));
+                            _data.Add(new QRCodeDataParticle(points, dataFromJson.id, dataFromJson.type));
                             break;
                     }
                 }

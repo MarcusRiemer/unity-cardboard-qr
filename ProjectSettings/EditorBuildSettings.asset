@@ -6,10 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/MainMenuScene.unity
+    path: Assets/_Scenes/StartScreen.unity
+  - enabled: 0
+    path: Assets/_Scenes/NavigationScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/GameScene.unity
   - enabled: 1
     path: Assets/_Scenes/CameraScene.unity
   - enabled: 1
     path: Assets/_Scenes/QuestionScene.unity
   - enabled: 1
     path: Assets/_Scenes/HelpScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/HelpDefaultScene.unity

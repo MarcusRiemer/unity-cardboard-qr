@@ -7,10 +7,9 @@ using Object = UnityEngine.Object;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// Abstract class handling the model data corresponding to a QR-code.
-    /// Actual model creation is handled by concrete subclasses.
+    /// Handles the model data corresponding to a QR-code.
     /// </summary>
-    public abstract class QrCodeData
+    public class QrCodeData
     {
         private ResultPoint[] _target;
         private GameObject _model;
@@ -18,6 +17,8 @@ namespace Assets.Scripts
         private DateTime _time;
         private DateTime _destroyTime = DateTime.MinValue;
         private bool _forceDestroy;
+        private DataType _dataType;
+        private bool isArrow = false;
 
         /// <summary>
         /// Time the model stays visible after the QR-code is no longer detected.
@@ -36,11 +37,13 @@ namespace Assets.Scripts
         /// </summary>
         /// <param name="resultPoints">Result points detected by ZXing</param>
         /// <param name="id">Id of QR-code</param>
-        public QrCodeData(ResultPoint[] resultPoints, int id)
+        /// <param name="dataType">Type of object. Used to determine to correct model.</param>
+        public QrCodeData(ResultPoint[] resultPoints, int id, DataType dataType)
         {
             _target = resultPoints;
             Id = id;
             _time = DateTime.UtcNow;
+            _dataType = dataType;
         }
 
         /// <summary>
@@ -55,10 +58,37 @@ namespace Assets.Scripts
         }
 
         /// <summary>
-        /// Creates a model representing the QR code.
+        /// Creates a model based on the <see cref="DataType"/>.
         /// </summary>
-        /// <param name="parent">Parent that the new model is attached to</param>
-        public abstract void CreateModel(Transform parent);
+        /// <param name="parent"></param>
+        public virtual void CreateModel(Transform parent)
+        {
+            GameObject model;
+            switch (_dataType)
+            {
+                case DataType.Coin:
+                    model = Object.Instantiate(Resources.Load("Coin")) as GameObject;
+                    isArrow = false;
+                    break;
+                case DataType.Position:
+                    // Get Arrow to get from the current position to the current destination
+                    var actArrow = GlobalState.Instance.AllPositions.positions.First(x => x.id == GlobalState.Instance.CurrentPosition)
+                            .ToPosition().Arrows[GlobalState.Instance.CurrentDestination];
+                    model = Object.Instantiate(Resources.Load(actArrow)) as GameObject;
+                    isArrow = true;
+                    break;
+                default:
+                    isArrow = false;
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (model != null)
+            {
+                model.transform.SetParent(parent);
+                model.transform.localPosition = LocalCoinPosition();
+                SetModel(model);
+            }
+        }
 
         public void SetModel(GameObject model)
         {
@@ -228,8 +258,11 @@ namespace Assets.Scripts
         public void UpdateModel()
         {
             GetModel().transform.localPosition = Interpolate(GetModel().transform.localPosition, LocalCoinPosition());
-            GetModel().transform.localScale = Interpolate(GetModel().transform.localScale, ScaleFactor());
-            GetModel().transform.Rotate(Vector3.forward*Time.smoothDeltaTime*100f);
+
+            if (!isArrow) { 
+                GetModel().transform.localScale = Interpolate(GetModel().transform.localScale, ScaleFactor());
+                GetModel().transform.Rotate(Vector3.forward * Time.smoothDeltaTime * 100f);
+            } 
         }
 
         private Vector3 Interpolate(Vector3 from, Vector3 to)
